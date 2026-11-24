@@ -1,33 +1,31 @@
+public class Combate {
+    private GeneradorAleatorio generador;
 
-/**
- * Write a description of class Combate here.
- *
- * @author (your name)
- * @version (a version number or a date)
- */
-public class Combate
-{
-    // instance variables - replace the example below with your own
-    private int x;
-
-    /**
-     * Constructor for objects of class Combate
-     */
-    public Combate()
-    {
-        // initialise instance variables
-        x = 0;
+    public Combate(GeneradorAleatorio generador) {
+        this.generador = generador;
     }
 
-    /**
-     * An example of a method - replace this comment with your own
-     *
-     * @param  y  a sample parameter for a method
-     * @return    the sum of x and y
-     */
-    public int sampleMethod(int y)
-    {
-        // put your code here
-        return x + y;
+    public int atacar(Jugador jugador, Enemigo enemigo) {
+        int danio;
+        if (enemigo.estaDerrotado()) {
+            danio = 0;
+        } else {
+            double resultado = generador.generar();
+            if (resultado < 0.1) {
+                danio = 0;
+            } else {
+                danio = jugador.getArma().getDanio();
+                if (resultado < jugador.getArma()
+                        .getProbabilidadCritica() + 0.1) {
+                    danio *= 2;
+                }
+                danio -= enemigo.getDefensa();
+                if (danio < 0) {
+                    danio = 0;
+                }
+                enemigo.recibirDanio(danio);
+            }
+        }
+        return danio;
     }
 }
