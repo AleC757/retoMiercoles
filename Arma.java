@@ -1,22 +1,14 @@
-
 public class Arma {
-    private String nombre;
-    private int danio;
-    private double probabilidadCritica;
+    private final String nombre;
+    private final int damage;
 
-    public Arma(String nombre, int danio,
-            double probabilidadCritica) {
+    public Arma(String nombre, int damage) {
         this.nombre = nombre;
-        this.danio = danio;
-        this.probabilidadCritica = probabilidadCritica;
+        this.damage = Math.max(0, damage);
     }
 
-    public int getDanio() {
-        return danio;
-    }
-
-    public double getProbabilidadCritica() {
-        return probabilidadCritica;
+    public int getDamage() {
+        return damage;
     }
 
     public String getNombre() {

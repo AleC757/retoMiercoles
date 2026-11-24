@@ -6,26 +6,31 @@ public class Combate {
     }
 
     public int atacar(Jugador jugador, Enemigo enemigo) {
-        int danio;
+        int damage;
+
         if (enemigo.estaDerrotado()) {
-            danio = 0;
+            damage = 0;
         } else {
-            double resultado = generador.generar();
-            if (resultado < 0.1) {
-                danio = 0;
+            int resultado = generador.generar();
+
+            if (resultado <= 20) {
+                damage = 0;
             } else {
-                danio = jugador.getArma().getDanio();
-                if (resultado < jugador.getArma()
-                        .getProbabilidadCritica() + 0.1) {
-                    danio *= 2;
+                int damageBase = jugador.getArma().getDamage();
+                int calculo;
+
+                if (resultado <= 80) {
+                    calculo = damageBase - enemigo.getDefensa();
+                } else {
+                    calculo = damageBase * 2 - enemigo.getDefensa();
                 }
-                danio -= enemigo.getDefensa();
-                if (danio < 0) {
-                    danio = 0;
-                }
-                enemigo.recibirDanio(danio);
+
+                damage = (int) Math.max(0, calculo);
             }
+
+            enemigo.recibirDamage(damage);
         }
-        return danio;
+
+        return damage;
     }
 }

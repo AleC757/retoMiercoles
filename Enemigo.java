@@ -1,4 +1,3 @@
-
 public class Enemigo {
     private String nombre;
     private int vida;
@@ -6,16 +5,12 @@ public class Enemigo {
 
     public Enemigo(String nombre, int vida, int defensa) {
         this.nombre = nombre;
-        this.vida = vida;
-        this.defensa = defensa;
+        this.vida = Math.max(0, vida);
+        this.defensa = Math.max(0, defensa);
     }
 
-    public void recibirDanio(int danio) {
-        vida -= danio;
-
-        if (vida < 0) {
-            vida = 0;
-        }
+    public void recibirDamage(int damage) {
+        vida = Math.max(0, vida - Math.max(0, damage));
     }
 
     public int getVida() {

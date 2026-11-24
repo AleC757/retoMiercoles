@@ -1,0 +1,41 @@
+MOCK OBJECTS EN UN SISTEMA DE COMBATE RPG
+
+Integrantes
+1. ________________________________________
+2. ________________________________________
+3. ________________________________________
+
+Objetivo
+Probar las reglas de combate de un videojuego RPG de forma repetible.
+La clase Combate es el sistema bajo prueba (SUT).
+
+Dependencia y aislamiento
+Combate necesita un número aleatorio para decidir el tipo de ataque.
+También consulta la defensa del enemigo y le indica cuánto daño recibe.
+Con el generador real, dos ejecuciones podrían tomar ramas distintas.
+El constructor recibe un GeneradorAleatorio, de modo que cada prueba puede
+entregar un mock con el número que necesita. El mock de Enemigo fija la
+defensa y permite comprobar la llamada que recibe.
+
+Mockito y JUnit
+Mockito crea los objetos simulados con mock() y fija sus respuestas con
+when(...).thenReturn(...). Luego se ejecuta atacar() en el objeto Combate
+real. JUnit compara el daño devuelto con assertEquals(), mientras que
+verify() de Mockito comprueba el valor enviado a recibirDamage().
+
+Resultados esperados con un arma de 30 puntos
+
+Escenario                       Azar    Defensa    Daño
+Ataque fallido                   10       10         0
+Ataque normal                    50       10        20
+Golpe crítico                    90       10        50
+Defensa superior al ataque       50       40         0
+
+En el fallo, Combate no consulta la defensa. Con el mock del enemigo se
+verifica la llamada a recibirDamage(), mientras que el cálculo del daño
+permanece a cargo del Combate real.
+
+Resultados en BlueJ
+Pruebas ejecutadas: ____   Fallos: ____
+Completar estos valores con el panel de pruebas de BlueJ y adjuntar la
+captura de la ejecución.

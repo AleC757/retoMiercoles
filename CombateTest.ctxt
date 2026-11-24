@@ -1,0 +1,8 @@
+#BlueJ class context
+#Tue Nov 24 14:19:03 BOT 2026
+comment0.target=CombateTest
+comment1.target=void ataqueFallido()
+comment2.target=void ataqueNormal()
+comment3.target=void golpeCritico()
+comment4.target=void defensaSuperiorAlAtaque()
+numComments=5

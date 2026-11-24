@@ -1,0 +1,58 @@
+@startuml
+skinparam classAttributeIconSize 0
+class Arma {
+  - nombre : String
+  - damage : int
+  + Arma(nombre : String, damage : int)
+  + getNombre() : String
+  + getDamage() : int
+}
+class Jugador {
+  - nombre : String
+  - vida : int
+  - arma : Arma
+  + Jugador(nombre : String, vida : int, arma : Arma)
+  + getNombre() : String
+  + getVida() : int
+  + getArma() : Arma
+}
+class Enemigo {
+  - nombre : String
+  - vida : int
+  - defensa : int
+  + Enemigo(nombre : String, vida : int, defensa : int)
+  + recibirDamage(damage : int) : void
+  + getNombre() : String
+  + getVida() : int
+  + getDefensa() : int
+  + estaDerrotado() : boolean
+}
+interface GeneradorAleatorio {
+  + generar() : int
+}
+class GeneradorAleatorioReal {
+  - random : Random
+  + generar() : int
+}
+class Combate {
+  - generador : GeneradorAleatorio
+  + Combate(generador : GeneradorAleatorio)
+  + atacar(jugador : Jugador, enemigo : Enemigo) : int
+}
+class CombateTest {
+  + ataqueFallido() : void
+  + ataqueNormal() : void
+  + golpeCritico() : void
+  + defensaSuperiorAlAtaque() : void
+}
+Jugador --> "1" Arma : equipa
+GeneradorAleatorioReal ..|> GeneradorAleatorio
+Combate --> "1" GeneradorAleatorio : recibe
+Combate ..> Jugador
+Combate ..> Enemigo
+CombateTest ..> Combate : prueba
+CombateTest ..> GeneradorAleatorio : simula
+CombateTest ..> Enemigo : simula
+CombateTest ..> Jugador : crea
+CombateTest ..> Arma : crea
+@enduml
